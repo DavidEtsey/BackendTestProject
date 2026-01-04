@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const  guestController= require("../controllers/guestController");
+const  guestController= require("../controllers/guestController.js");
+const { verifyToken, checkRole } = require('../middleware/authMiddleware.js');
+
+router.use(verifyToken);
+router.use(checkRole('staff')); // Staff manages guests
 
 //Crud
 router.get("/", guestController.getGuests);            
